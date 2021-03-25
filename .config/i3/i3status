@@ -1,0 +1,55 @@
+general {
+        output_format = "i3bar"
+        colors = false
+        interval = 1
+}
+
+order += "wireless wlp3s0"
+order += "ethernet eth0"
+order += "volume master"
+order += "battery 0"
+order += "memory"
+order += "tztime local"
+
+wireless wlp3s0 {
+        format_up = "🌐 %quality at %essid, %bitrate: %ip"
+        format_down = ""
+}
+
+ethernet eth0 {
+        format_up = "🌐 %ip (%speed)"
+        format_down = ""
+}
+
+battery 0 {
+        format = "%status %percentage %remaining %emptytime"
+        format_down = ""
+        status_chr = "⚡"
+        status_bat = "🔋"
+        status_unk = "?"
+        status_full = "☻ FULL"
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        low_threshold = 10
+}
+
+tztime local {
+        format = "📅 %Y. %m. %d %H:%M:%S"
+}
+
+memory {
+        format = "🧠 %used / %total"
+        threshold_degraded = "10%"
+        threshold_critical = "5%"
+}
+
+read_file uptime {
+        path = "/proc/uptime"
+}
+
+volume master {
+	device = "default"
+	mixer = "Master"
+	mixer_idx = 0
+	format = "🔊 %volume "
+	format_muted = "🔇 "
+}
